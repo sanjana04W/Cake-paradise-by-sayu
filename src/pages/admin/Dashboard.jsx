@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { subscribeToOrders } from '../../firebase/firestore';
 import { getLocalProducts, subscribeProducts } from '../../data/localProductStore';
-import { SeedFirebaseButton } from '../../components/admin/SeedFirebaseButton';
+
 
 /* ─── Stat Card ─── */
 const StatCard = ({ title, value, icon: Icon, trend, trendValue, color }) => (
@@ -140,7 +140,7 @@ const Dashboard = () => {
           <h1 className="text-2xl font-bold text-gray-900 font-display">Dashboard</h1>
           <p className="text-sm text-gray-500 mt-0.5">Welcome back! Here's what's happening at Cake Paradise.</p>
         </div>
-        <SeedFirebaseButton />
+
         <p className="text-xs text-gray-400 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
           Updated: {new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}
         </p>
