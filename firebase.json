@@ -8,8 +8,8 @@
   },
   "hosting": [
     {
-      "target": "public",
-      "public": "dist-public",
+      "target": "website",
+      "public": "dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [{ "source": "**", "destination": "/index.html" }]
     },
