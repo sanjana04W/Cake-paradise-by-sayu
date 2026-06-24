@@ -1,153 +1,766 @@
-{
-	"info": {
-		"_postman_id": "12345678-1234-1234-1234-1234567890ab",
-		"name": "Cake Paradise (Firebase REST API)",
-		"description": "Postman collection representing the database operations for the Cake Paradise serverless application. Note: The application uses the Firebase Client SDK directly, so these are the equivalent Firebase REST API endpoints for testing.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Products",
-			"item": [
-				{
-					"name": "Get All Products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products",
-							"protocol": "https",
-							"host": ["firestore", "googleapis", "com"],
-							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products"]
-						}
-					}
-				},
-				{
-					"name": "Get Single Product",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products/{{product_id}}",
-							"protocol": "https",
-							"host": ["firestore", "googleapis", "com"],
-							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products", "{{product_id}}"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "Create Order",
-					"request": {
-						"method": "POST",
-						"header": [
-							{"key": "Content-Type", "value": "application/json"}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"fields\": {\n    \"customerInfo\": {\n      \"mapValue\": {\n        \"fields\": {\n          \"name\": { \"stringValue\": \"Jane Doe\" },\n          \"email\": { \"stringValue\": \"jane@example.com\" }\n        }\n      }\n    },\n    \"totalAmount\": { \"integerValue\": \"5500\" },\n    \"status\": { \"stringValue\": \"pending\" }\n  }\n}"
-						},
-						"url": {
-							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders",
-							"protocol": "https",
-							"host": ["firestore", "googleapis", "com"],
-							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders"]
-						}
-					}
-				},
-				{
-					"name": "Get All Orders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders",
-							"protocol": "https",
-							"host": ["firestore", "googleapis", "com"],
-							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "Inquiries",
-			"item": [
-				{
-					"name": "Submit Inquiry",
-					"request": {
-						"method": "POST",
-						"header": [
-							{"key": "Content-Type", "value": "application/json"}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"fields\": {\n    \"name\": { \"stringValue\": \"John Smith\" },\n    \"email\": { \"stringValue\": \"john@example.com\" },\n    \"message\": { \"stringValue\": \"Do you make custom birthday cakes?\" },\n    \"createdAt\": { \"timestampValue\": \"2023-10-01T12:00:00Z\" }\n  }\n}"
-						},
-						"url": {
-							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/inquiries",
-							"protocol": "https",
-							"host": ["firestore", "googleapis", "com"],
-							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "inquiries"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "EmailJS (Order Confirmation)",
-			"item": [
-				{
-					"name": "Send Email",
-					"request": {
-						"method": "POST",
-						"header": [
-							{"key": "Content-Type", "value": "application/json"}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"service_id\": \"{{emailjs_service_id}}\",\n  \"template_id\": \"{{emailjs_template_id}}\",\n  \"user_id\": \"{{emailjs_public_key}}\",\n  \"template_params\": {\n    \"to_name\": \"Customer Name\",\n    \"to_email\": \"customer@example.com\",\n    \"order_id\": \"ORD-123456\",\n    \"total_amount\": \"5000\"\n  }\n}"
-						},
-						"url": {
-							"raw": "https://api.emailjs.com/api/v1.0/email/send",
-							"protocol": "https",
-							"host": ["api", "emailjs", "com"],
-							"path": ["api", "v1.0", "email", "send"]
-						}
-					}
-				}
-			]
-		}
-	],
-	"variable": [
-		{
-			"key": "firebase_project_id",
-			"value": "demo-project",
-			"type": "string"
-		},
-		{
-			"key": "product_id",
-			"value": "SAMPLE_PRODUCT_ID",
-			"type": "string"
-		},
-		{
-			"key": "emailjs_service_id",
-			"value": "service_wanl11i",
-			"type": "string"
-		},
-		{
-			"key": "emailjs_template_id",
-			"value": "template_9isitmw",
-			"type": "string"
-		},
-		{
-			"key": "emailjs_public_key",
-			"value": "OyFOVHnKDcQ3-Iqs8",
-			"type": "string"
-		}
-	]
+﻿{
+  "info": {
+    "_postman_id": "cake-paradise-sayu-2026",
+    "name": "Cake Paradise by Sayu (Firebase REST API)",
+    "description": "Complete Postman collection for the Cake Paradise by Sayu bakery application.\n\nThis app is serverless â€” it uses the Firebase Client SDK directly in the browser. These requests model the equivalent Firebase REST API calls for testing, inspection, and documentation.\n\nFirestore Collections: products, categories, orders, customInquiries, customers, adminUsers, siteConfig.\n\nExternal Services: Firebase Authentication REST API, Firebase Storage, EmailJS (order + inquiry emails).\n\nHow to use:\n1. Set firebase_project_id variable to your Firebase project ID.\n2. For protected endpoints, run Auth > Sign In and copy the idToken into the id_token variable.\n3. All currency values are in LKR (Sri Lankan Rupees).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "Firebase Authentication REST API. Used by both admin panel and customer-facing portal.",
+      "item": [
+        {
+          "name": "Admin - Sign In",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@cakeparadisebysayu.com\",\n  \"password\": \"your_admin_password\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+              "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_web_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit", "googleapis", "com"],
+              "path": ["v1", "accounts:signInWithPassword"],
+              "query": [{ "key": "key", "value": "{{firebase_web_api_key}}" }]
+            },
+            "description": "Signs in an admin user. Copy the idToken from the response body and set it as the id_token variable."
+          }
+        },
+        {
+          "name": "Customer - Sign In",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer@example.com\",\n  \"password\": \"customer_password\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+              "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{firebase_web_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit", "googleapis", "com"],
+              "path": ["v1", "accounts:signInWithPassword"],
+              "query": [{ "key": "key", "value": "{{firebase_web_api_key}}" }]
+            }
+          }
+        },
+        {
+          "name": "Customer - Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newcustomer@example.com\",\n  \"password\": \"securePassword123\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+              "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={{firebase_web_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit", "googleapis", "com"],
+              "path": ["v1", "accounts:signUp"],
+              "query": [{ "key": "key", "value": "{{firebase_web_api_key}}" }]
+            }
+          }
+        },
+        {
+          "name": "Get Current User Info",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idToken\": \"{{id_token}}\"\n}"
+            },
+            "url": {
+              "raw": "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key={{firebase_web_api_key}}",
+              "protocol": "https",
+              "host": ["identitytoolkit", "googleapis", "com"],
+              "path": ["v1", "accounts:lookup"],
+              "query": [{ "key": "key", "value": "{{firebase_web_api_key}}" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "description": "CRUD operations on the products Firestore collection.\n\nKey fields: name (string), slug (string), description (string), price (number LKR), categoryId (string), parentCategoryId (string), images (array of URLs), status ('active'|'inactive'), isFeatured (boolean), stockStatus ('in-stock'|'out-of-stock'|'made-to-order'), tags (array), createdAt/updatedAt (timestamps).",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products?pageSize=50",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products"],
+              "query": [{ "key": "pageSize", "value": "50" }]
+            },
+            "description": "Returns all products. In the app, subscribeToProducts() filters by status=='active' and orders by createdAt desc."
+          }
+        },
+        {
+          "name": "Get Single Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products/{{product_id}}",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products", "{{product_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Query Products by Category (runQuery)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"products\" }],\n    \"where\": {\n      \"compositeFilter\": {\n        \"op\": \"AND\",\n        \"filters\": [\n          { \"fieldFilter\": { \"field\": { \"fieldPath\": \"categoryId\" }, \"op\": \"EQUAL\", \"value\": { \"stringValue\": \"{{category_id}}\" } } },\n          { \"fieldFilter\": { \"field\": { \"fieldPath\": \"status\" }, \"op\": \"EQUAL\", \"value\": { \"stringValue\": \"active\" } } }\n        ]\n      }\n    },\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"createdAt\" }, \"direction\": \"DESCENDING\" }],\n    \"limit\": 20\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        },
+        {
+          "name": "Query Featured Products (runQuery)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"products\" }],\n    \"where\": {\n      \"compositeFilter\": {\n        \"op\": \"AND\",\n        \"filters\": [\n          { \"fieldFilter\": { \"field\": { \"fieldPath\": \"isFeatured\" }, \"op\": \"EQUAL\", \"value\": { \"booleanValue\": true } } },\n          { \"fieldFilter\": { \"field\": { \"fieldPath\": \"status\" }, \"op\": \"EQUAL\", \"value\": { \"stringValue\": \"active\" } } }\n        ]\n      }\n    },\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"createdAt\" }, \"direction\": \"DESCENDING\" }],\n    \"limit\": 8\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        },
+        {
+          "name": "Add Product (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"name\": { \"stringValue\": \"Chocolate Truffle Cake\" },\n    \"slug\": { \"stringValue\": \"chocolate-truffle-cake\" },\n    \"description\": { \"stringValue\": \"Rich Belgian chocolate cake with ganache frosting.\" },\n    \"price\": { \"doubleValue\": 3500 },\n    \"categoryId\": { \"stringValue\": \"{{category_id}}\" },\n    \"parentCategoryId\": { \"stringValue\": \"cakes\" },\n    \"images\": { \"arrayValue\": { \"values\": [{ \"stringValue\": \"https://firebasestorage.googleapis.com/...\" }] } },\n    \"status\": { \"stringValue\": \"active\" },\n    \"isFeatured\": { \"booleanValue\": false },\n    \"stockStatus\": { \"stringValue\": \"in-stock\" },\n    \"tags\": { \"arrayValue\": { \"values\": [{ \"stringValue\": \"chocolate\" }, { \"stringValue\": \"bestseller\" }] } }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products"]
+            },
+            "description": "Requires admin id_token. In the app, addProduct() also sets createdAt and updatedAt via serverTimestamp()."
+          }
+        },
+        {
+          "name": "Update Product (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"price\": { \"doubleValue\": 4000 },\n    \"stockStatus\": { \"stringValue\": \"in-stock\" },\n    \"status\": { \"stringValue\": \"active\" }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products/{{product_id}}?updateMask.fieldPaths=price&updateMask.fieldPaths=stockStatus&updateMask.fieldPaths=status",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products", "{{product_id}}"],
+              "query": [
+                { "key": "updateMask.fieldPaths", "value": "price" },
+                { "key": "updateMask.fieldPaths", "value": "stockStatus" },
+                { "key": "updateMask.fieldPaths", "value": "status" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Product (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products/{{product_id}}",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products", "{{product_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "description": "Operations on the categories Firestore collection.\n\nKey fields: name (string), slug (string), description (string), parentId (string|null), displayOrder (number), status ('active'|'inactive'), imageUrl (string).",
+      "item": [
+        {
+          "name": "Get All Active Categories",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"categories\" }],\n    \"where\": {\n      \"fieldFilter\": {\n        \"field\": { \"fieldPath\": \"status\" },\n        \"op\": \"EQUAL\",\n        \"value\": { \"stringValue\": \"active\" }\n      }\n    },\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"displayOrder\" }, \"direction\": \"ASCENDING\" }]\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        },
+        {
+          "name": "Add Category (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"name\": { \"stringValue\": \"Wedding Cakes\" },\n    \"slug\": { \"stringValue\": \"wedding-cakes\" },\n    \"description\": { \"stringValue\": \"Elegant multi-tiered wedding cakes.\" },\n    \"parentId\": { \"nullValue\": null },\n    \"displayOrder\": { \"integerValue\": \"1\" },\n    \"status\": { \"stringValue\": \"active\" },\n    \"imageUrl\": { \"stringValue\": \"\" }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/categories",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Update Category (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"displayOrder\": { \"integerValue\": \"2\" },\n    \"status\": { \"stringValue\": \"active\" }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/categories/{{category_id}}?updateMask.fieldPaths=displayOrder&updateMask.fieldPaths=status",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "categories", "{{category_id}}"],
+              "query": [
+                { "key": "updateMask.fieldPaths", "value": "displayOrder" },
+                { "key": "updateMask.fieldPaths", "value": "status" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "description": "Operations on the orders Firestore collection.\n\nKey fields: orderId (string e.g. ORD-20240624-001), customerInfo (map: name, phone, email, deliveryAddress, district), items (array), totalAmount (number LKR), deliveryFee (number LKR), deliveryMethod ('delivery'|'pickup'), deliveryDate (string), timeSlot ('morning'|'afternoon'|'evening'), paymentMethod ('cod'|'bank-transfer'), orderStatus ('pending-confirmation'|'confirmed'|'in-preparation'|'ready-for-delivery'|'out-for-delivery'|'delivered'|'cancelled'), paymentStatus ('pending'|'paid'), trackHistory (array of {status, timestamp, updatedBy}), specialInstructions (string), emailSent (boolean), createdAt/updatedAt.",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"orderId\": { \"stringValue\": \"ORD-20240624-001\" },\n    \"customerInfo\": {\n      \"mapValue\": {\n        \"fields\": {\n          \"name\": { \"stringValue\": \"Sanjana Perera\" },\n          \"phone\": { \"stringValue\": \"+94771234567\" },\n          \"email\": { \"stringValue\": \"sanjana@example.com\" },\n          \"deliveryAddress\": { \"stringValue\": \"42 Galle Road, Colombo 03\" },\n          \"district\": { \"stringValue\": \"colombo-03\" }\n        }\n      }\n    },\n    \"items\": {\n      \"arrayValue\": {\n        \"values\": [{\n          \"mapValue\": {\n            \"fields\": {\n              \"productId\": { \"stringValue\": \"{{product_id}}\" },\n              \"name\": { \"stringValue\": \"Chocolate Truffle Cake\" },\n              \"price\": { \"doubleValue\": 3500 },\n              \"quantity\": { \"integerValue\": \"1\" },\n              \"customizations\": {\n                \"mapValue\": {\n                  \"fields\": {\n                    \"inscription\": { \"stringValue\": \"Happy Birthday Amali!\" },\n                    \"flavor\": { \"stringValue\": \"chocolate\" }\n                  }\n                }\n              }\n            }\n          }\n        }]\n      }\n    },\n    \"totalAmount\": { \"doubleValue\": 3800 },\n    \"deliveryFee\": { \"doubleValue\": 300 },\n    \"deliveryMethod\": { \"stringValue\": \"delivery\" },\n    \"deliveryDate\": { \"stringValue\": \"2024-06-27\" },\n    \"timeSlot\": { \"stringValue\": \"afternoon\" },\n    \"paymentMethod\": { \"stringValue\": \"cod\" },\n    \"orderStatus\": { \"stringValue\": \"pending-confirmation\" },\n    \"paymentStatus\": { \"stringValue\": \"pending\" },\n    \"specialInstructions\": { \"stringValue\": \"Please handle with care.\" },\n    \"emailSent\": { \"booleanValue\": false }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders"]
+            },
+            "description": "In the app, createOrder() auto-generates the orderId (ORD-YYYYMMDD-NNN), appends the initial trackHistory entry with status 'pending-confirmation', and also calls upsertCustomer() to create/update the customer record."
+          }
+        },
+        {
+          "name": "Get All Orders (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"orders\" }],\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"createdAt\" }, \"direction\": \"DESCENDING\" }]\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        },
+        {
+          "name": "Get Orders by Status (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"orders\" }],\n    \"where\": {\n      \"fieldFilter\": {\n        \"field\": { \"fieldPath\": \"orderStatus\" },\n        \"op\": \"EQUAL\",\n        \"value\": { \"stringValue\": \"pending-confirmation\" }\n      }\n    },\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"createdAt\" }, \"direction\": \"DESCENDING\" }]\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            },
+            "description": "Valid orderStatus values: pending-confirmation, confirmed, in-preparation, ready-for-delivery, out-for-delivery, delivered, cancelled"
+          }
+        },
+        {
+          "name": "Get Single Order by Doc ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders/{{order_doc_id}}",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders", "{{order_doc_id}}"]
+            },
+            "description": "order_doc_id is the Firestore auto-generated document ID. The human-readable orderId (e.g. ORD-20240624-001) is a field inside the document."
+          }
+        },
+        {
+          "name": "Update Order Status (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"orderStatus\": { \"stringValue\": \"confirmed\" }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders/{{order_doc_id}}?updateMask.fieldPaths=orderStatus",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders", "{{order_doc_id}}"],
+              "query": [{ "key": "updateMask.fieldPaths", "value": "orderStatus" }]
+            },
+            "description": "In the app, updateOrderStatus() also appends to trackHistory and sets paymentStatus='paid' when status becomes 'delivered'."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom Inquiries",
+      "description": "Operations on the customInquiries Firestore collection. Used for the Custom Order Request form.\n\nKey fields: inquiryId (string e.g. INQ-20240624-001), customerName, customerPhone, customerEmail, cakeType, servings (number), occasion, deliveryDate, designDescription, referenceImages (array), budget (number LKR), quoteStatus ('new'|'viewed'|'quoted'|'accepted'|'rejected'|'converted'), quotedAmount (number|null), adminNotes (string), convertedOrderId (string|null), createdAt/updatedAt.",
+      "item": [
+        {
+          "name": "Submit Custom Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"inquiryId\": { \"stringValue\": \"INQ-20240624-001\" },\n    \"customerName\": { \"stringValue\": \"Malsha Fernando\" },\n    \"customerPhone\": { \"stringValue\": \"+94712345678\" },\n    \"customerEmail\": { \"stringValue\": \"malsha@example.com\" },\n    \"cakeType\": { \"stringValue\": \"Wedding Cake\" },\n    \"servings\": { \"integerValue\": \"150\" },\n    \"occasion\": { \"stringValue\": \"Wedding\" },\n    \"deliveryDate\": { \"stringValue\": \"2024-08-15\" },\n    \"designDescription\": { \"stringValue\": \"Three-tier white fondant cake with gold leaf accents and fresh flowers.\" },\n    \"referenceImages\": { \"arrayValue\": { \"values\": [] } },\n    \"budget\": { \"doubleValue\": 25000 },\n    \"quoteStatus\": { \"stringValue\": \"new\" },\n    \"quotedAmount\": { \"nullValue\": null },\n    \"adminNotes\": { \"stringValue\": \"\" },\n    \"convertedOrderId\": { \"nullValue\": null }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/customInquiries",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "customInquiries"]
+            }
+          }
+        },
+        {
+          "name": "Get All Inquiries (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"customInquiries\" }],\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"createdAt\" }, \"direction\": \"DESCENDING\" }]\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        },
+        {
+          "name": "Update Inquiry - Set Quote (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"quoteStatus\": { \"stringValue\": \"quoted\" },\n    \"quotedAmount\": { \"doubleValue\": 22000 },\n    \"adminNotes\": { \"stringValue\": \"Quoted 22,000 LKR. Delivery by 10 AM.\" }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/customInquiries/{{inquiry_doc_id}}?updateMask.fieldPaths=quoteStatus&updateMask.fieldPaths=quotedAmount&updateMask.fieldPaths=adminNotes",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "customInquiries", "{{inquiry_doc_id}}"],
+              "query": [
+                { "key": "updateMask.fieldPaths", "value": "quoteStatus" },
+                { "key": "updateMask.fieldPaths", "value": "quotedAmount" },
+                { "key": "updateMask.fieldPaths", "value": "adminNotes" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "description": "Operations on the customers Firestore collection. Records are auto-created/updated via upsertCustomer() when an order is placed. Phone number is the deduplication key.\n\nKey fields: name, phone (primary key), email, primaryAddress, district, totalOrdersCount (number), lifetimeValue (number LKR), lastOrderDate (timestamp), notes (string), createdAt.",
+      "item": [
+        {
+          "name": "Get All Customers (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"customers\" }],\n    \"orderBy\": [{ \"field\": { \"fieldPath\": \"lastOrderDate\" }, \"direction\": \"DESCENDING\" }]\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        },
+        {
+          "name": "Find Customer by Phone (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structuredQuery\": {\n    \"from\": [{ \"collectionId\": \"customers\" }],\n    \"where\": {\n      \"fieldFilter\": {\n        \"field\": { \"fieldPath\": \"phone\" },\n        \"op\": \"EQUAL\",\n        \"value\": { \"stringValue\": \"+94771234567\" }\n      }\n    },\n    \"limit\": 1\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents:runQuery",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents:runQuery"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Users",
+      "description": "Operations on the adminUsers Firestore collection. Documents are keyed by Firebase Auth UID.\n\nKey fields: uid (string = doc ID), name, email, role ('owner'|'kitchen-staff'|'inventory-manager'|'content-manager'), assignedPermissions (array), isActive (boolean), lastLoginAt (timestamp|null), createdAt.",
+      "item": [
+        {
+          "name": "Get Admin User by UID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/adminUsers/{{admin_uid}}",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "adminUsers", "{{admin_uid}}"]
+            }
+          }
+        },
+        {
+          "name": "Get All Admin Users (Owner only)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/adminUsers",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "adminUsers"]
+            }
+          }
+        },
+        {
+          "name": "Create Admin User (Owner only)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"uid\": { \"stringValue\": \"{{admin_uid}}\" },\n    \"name\": { \"stringValue\": \"Kitchen Staff Member\" },\n    \"email\": { \"stringValue\": \"staff@cakeparadisebysayu.com\" },\n    \"role\": { \"stringValue\": \"kitchen-staff\" },\n    \"assignedPermissions\": { \"arrayValue\": { \"values\": [{ \"stringValue\": \"orders.view\" }, { \"stringValue\": \"orders.update\" }] } },\n    \"isActive\": { \"booleanValue\": true },\n    \"lastLoginAt\": { \"nullValue\": null }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/adminUsers/{{admin_uid}}",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "adminUsers", "{{admin_uid}}"]
+            },
+            "description": "In the app, createAdminUser() first calls Firebase Auth createUserWithEmailAndPassword(), then writes this document with the Auth UID as the document ID. Available roles: owner, kitchen-staff, inventory-manager, content-manager."
+          }
+        },
+        {
+          "name": "Deactivate Admin User (Owner only)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"isActive\": { \"booleanValue\": false }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/adminUsers/{{admin_uid}}?updateMask.fieldPaths=isActive",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "adminUsers", "{{admin_uid}}"],
+              "query": [{ "key": "updateMask.fieldPaths", "value": "isActive" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Site Config",
+      "description": "Operations on the siteConfig Firestore collection. Single document with ID 'main'.\n\nKey fields: deliveryZones (array of {district, name, fee}), businessHours ({open, close}), timeSlots (array of {value, label}), whatsappNumber, socialLinks ({facebook, instagram, tiktok}), faqItems (array), announcementBanner ({text, isActive}), deliveryPolicy, cancellationPolicy, termsOfService.",
+      "item": [
+        {
+          "name": "Get Site Config",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/siteConfig/main",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "siteConfig", "main"]
+            }
+          }
+        },
+        {
+          "name": "Update Announcement Banner (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"announcementBanner\": {\n      \"mapValue\": {\n        \"fields\": {\n          \"text\": { \"stringValue\": \"Free delivery on orders above LKR 5,000! Use code FREEDEL\" },\n          \"isActive\": { \"booleanValue\": true }\n        }\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/siteConfig/main?updateMask.fieldPaths=announcementBanner",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "siteConfig", "main"],
+              "query": [{ "key": "updateMask.fieldPaths", "value": "announcementBanner" }]
+            }
+          }
+        },
+        {
+          "name": "Update WhatsApp Number (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{id_token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"whatsappNumber\": { \"stringValue\": \"+94743593784\" }\n  }\n}"
+            },
+            "url": {
+              "raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/siteConfig/main?updateMask.fieldPaths=whatsappNumber",
+              "protocol": "https",
+              "host": ["firestore", "googleapis", "com"],
+              "path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "siteConfig", "main"],
+              "query": [{ "key": "updateMask.fieldPaths", "value": "whatsappNumber" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Firebase Storage",
+      "description": "Firebase Storage REST API for managing product and media images.\n\nStorage paths: products/ (product images), media/ (admin Media panel), categories/ (category banners).\n\nNote: In the app, files >2MB are auto-compressed to WebP before upload. The storage.js module uses uploadImage(), uploadMultipleImages(), deleteImage(), and listImages().",
+      "item": [
+        {
+          "name": "Upload Image",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "",
+                  "description": "Select an image file (JPEG, PNG, WebP). App auto-compresses files >2MB to WebP at 85% quality."
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://firebasestorage.googleapis.com/v0/b/{{firebase_storage_bucket}}/o?name=products%2F{{image_filename}}",
+              "protocol": "https",
+              "host": ["firebasestorage", "googleapis", "com"],
+              "path": ["v0", "b", "{{firebase_storage_bucket}}", "o"],
+              "query": [{ "key": "name", "value": "products%2F{{image_filename}}" }]
+            }
+          }
+        },
+        {
+          "name": "Get Image Metadata and Download URL",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firebasestorage.googleapis.com/v0/b/{{firebase_storage_bucket}}/o/products%2F{{image_filename}}",
+              "protocol": "https",
+              "host": ["firebasestorage", "googleapis", "com"],
+              "path": ["v0", "b", "{{firebase_storage_bucket}}", "o", "products%2F{{image_filename}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Image",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firebasestorage.googleapis.com/v0/b/{{firebase_storage_bucket}}/o/products%2F{{image_filename}}",
+              "protocol": "https",
+              "host": ["firebasestorage", "googleapis", "com"],
+              "path": ["v0", "b", "{{firebase_storage_bucket}}", "o", "products%2F{{image_filename}}"]
+            }
+          }
+        },
+        {
+          "name": "List Images in products/",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{id_token}}" }],
+            "url": {
+              "raw": "https://firebasestorage.googleapis.com/v0/b/{{firebase_storage_bucket}}/o?prefix=products%2F",
+              "protocol": "https",
+              "host": ["firebasestorage", "googleapis", "com"],
+              "path": ["v0", "b", "{{firebase_storage_bucket}}", "o"],
+              "query": [{ "key": "prefix", "value": "products%2F" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "EmailJS",
+      "description": "EmailJS API for transactional emails. Two templates are configured:\n- Order Confirmation (VITE_EMAILJS_ORDER_TEMPLATE_ID): sent to customer after order placement.\n- Custom Inquiry Confirmation (VITE_EMAILJS_INQUIRY_TEMPLATE_ID): sent after inquiry submission.",
+      "item": [
+        {
+          "name": "Send Order Confirmation Email",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_id\": \"{{emailjs_service_id}}\",\n  \"template_id\": \"{{emailjs_order_template_id}}\",\n  \"user_id\": \"{{emailjs_public_key}}\",\n  \"template_params\": {\n    \"to_name\": \"Sanjana Perera\",\n    \"to_email\": \"sanjana@example.com\",\n    \"order_id\": \"ORD-20240624-001\",\n    \"total_amount\": \"3800\",\n    \"delivery_date\": \"2024-06-27\",\n    \"time_slot\": \"Afternoon (12:00 PM - 4:00 PM)\",\n    \"delivery_address\": \"42 Galle Road, Colombo 03\",\n    \"payment_method\": \"Cash on Delivery\"\n  }\n}"
+            },
+            "url": {
+              "raw": "https://api.emailjs.com/api/v1.0/email/send",
+              "protocol": "https",
+              "host": ["api", "emailjs", "com"],
+              "path": ["api", "v1.0", "email", "send"]
+            }
+          }
+        },
+        {
+          "name": "Send Custom Inquiry Confirmation Email",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_id\": \"{{emailjs_service_id}}\",\n  \"template_id\": \"{{emailjs_inquiry_template_id}}\",\n  \"user_id\": \"{{emailjs_public_key}}\",\n  \"template_params\": {\n    \"to_name\": \"Malsha Fernando\",\n    \"to_email\": \"malsha@example.com\",\n    \"inquiry_id\": \"INQ-20240624-001\",\n    \"cake_type\": \"Wedding Cake\",\n    \"occasion\": \"Wedding\",\n    \"delivery_date\": \"2024-08-15\",\n    \"budget\": \"25000\"\n  }\n}"
+            },
+            "url": {
+              "raw": "https://api.emailjs.com/api/v1.0/email/send",
+              "protocol": "https",
+              "host": ["api", "emailjs", "com"],
+              "path": ["api", "v1.0", "email", "send"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "firebase_project_id", "value": "your-firebase-project-id", "type": "string", "description": "Firebase project ID. Found in Firebase Console > Project Settings." },
+    { "key": "firebase_web_api_key", "value": "your-firebase-web-api-key", "type": "string", "description": "Firebase Web API Key. Found in Firebase Console > Project Settings > General > Web API Key. Matches VITE_FIREBASE_API_KEY." },
+    { "key": "firebase_storage_bucket", "value": "your-firebase-project-id.appspot.com", "type": "string", "description": "Firebase Storage bucket. Matches VITE_FIREBASE_STORAGE_BUCKET." },
+    { "key": "id_token", "value": "", "type": "string", "description": "Firebase ID token for authenticated requests. Obtain by running Auth > Sign In and copying idToken from the response." },
+    { "key": "product_id", "value": "SAMPLE_PRODUCT_ID", "type": "string", "description": "Firestore document ID of a product." },
+    { "key": "category_id", "value": "SAMPLE_CATEGORY_ID", "type": "string", "description": "Firestore document ID of a category." },
+    { "key": "order_doc_id", "value": "SAMPLE_ORDER_DOC_ID", "type": "string", "description": "Firestore auto-generated document ID of an order (not the human-readable orderId like ORD-20240624-001)." },
+    { "key": "inquiry_doc_id", "value": "SAMPLE_INQUIRY_DOC_ID", "type": "string", "description": "Firestore document ID of a customInquiry." },
+    { "key": "admin_uid", "value": "ADMIN_FIREBASE_UID", "type": "string", "description": "Firebase Auth UID of an admin user. Used as the Firestore document ID in adminUsers collection." },
+    { "key": "image_filename", "value": "1719200000000-chocolate-truffle-cake.webp", "type": "string", "description": "Storage filename. The app prefixes with a timestamp and sanitizes the name." },
+    { "key": "emailjs_service_id", "value": "service_wanl11i", "type": "string", "description": "EmailJS service ID. Matches VITE_EMAILJS_SERVICE_ID." },
+    { "key": "emailjs_order_template_id", "value": "your_order_template_id", "type": "string", "description": "EmailJS order confirmation template ID. Matches VITE_EMAILJS_ORDER_TEMPLATE_ID." },
+    { "key": "emailjs_inquiry_template_id", "value": "your_inquiry_template_id", "type": "string", "description": "EmailJS inquiry confirmation template ID. Matches VITE_EMAILJS_INQUIRY_TEMPLATE_ID." },
+    { "key": "emailjs_public_key", "value": "OyFOVHnKDcQ3-Iqs8", "type": "string", "description": "EmailJS public key. Matches VITE_EMAILJS_PUBLIC_KEY." }
+  ]
 }
