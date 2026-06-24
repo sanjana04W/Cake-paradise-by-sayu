@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Products: public read, open write (admin panel uses demo auth) ──────
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // ── Categories: public read only ────────────────────────────────────────
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // ── Orders: open (demo mode — no real payment/auth system yet) ──────────
+    match /orders/{orderId} {
+      allow read, write: if true;
+    }
+
+    // ── Custom Inquiries ─────────────────────────────────────────────────────
+    match /customInquiries/{inquiryId} {
+      allow read, write: if true;
+    }
+
+    // ── Customers ────────────────────────────────────────────────────────────
+    match /customers/{customerId} {
+      allow read, write: if true;
+    }
+
+    // ── Admin Users: read/write open for demo ────────────────────────────────
+    match /adminUsers/{uid} {
+      allow read, write: if true;
+    }
+
+    // ── Site Config ──────────────────────────────────────────────────────────
+    match /siteConfig/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
