@@ -2,6 +2,17 @@
   "projects": {
     "default": "cake-paradise-969e6"
   },
-  "targets": {},
+  "targets": {
+    "cake-paradise-969e6": {
+      "hosting": {
+        "website": [
+          "cake-paradise-969e6"
+        ],
+        "admin": [
+          "cake-paradise-969e6-admin"
+        ]
+      }
+    }
+  },
   "etags": {}
 }
