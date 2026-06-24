@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-1234567890ab",
+		"name": "Cake Paradise (Firebase REST API)",
+		"description": "Postman collection representing the database operations for the Cake Paradise serverless application. Note: The application uses the Firebase Client SDK directly, so these are the equivalent Firebase REST API endpoints for testing.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products",
+							"protocol": "https",
+							"host": ["firestore", "googleapis", "com"],
+							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products"]
+						}
+					}
+				},
+				{
+					"name": "Get Single Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/products/{{product_id}}",
+							"protocol": "https",
+							"host": ["firestore", "googleapis", "com"],
+							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "products", "{{product_id}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fields\": {\n    \"customerInfo\": {\n      \"mapValue\": {\n        \"fields\": {\n          \"name\": { \"stringValue\": \"Jane Doe\" },\n          \"email\": { \"stringValue\": \"jane@example.com\" }\n        }\n      }\n    },\n    \"totalAmount\": { \"integerValue\": \"5500\" },\n    \"status\": { \"stringValue\": \"pending\" }\n  }\n}"
+						},
+						"url": {
+							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders",
+							"protocol": "https",
+							"host": ["firestore", "googleapis", "com"],
+							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders"]
+						}
+					}
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/orders",
+							"protocol": "https",
+							"host": ["firestore", "googleapis", "com"],
+							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "orders"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Inquiries",
+			"item": [
+				{
+					"name": "Submit Inquiry",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fields\": {\n    \"name\": { \"stringValue\": \"John Smith\" },\n    \"email\": { \"stringValue\": \"john@example.com\" },\n    \"message\": { \"stringValue\": \"Do you make custom birthday cakes?\" },\n    \"createdAt\": { \"timestampValue\": \"2023-10-01T12:00:00Z\" }\n  }\n}"
+						},
+						"url": {
+							"raw": "https://firestore.googleapis.com/v1/projects/{{firebase_project_id}}/databases/(default)/documents/inquiries",
+							"protocol": "https",
+							"host": ["firestore", "googleapis", "com"],
+							"path": ["v1", "projects", "{{firebase_project_id}}", "databases", "(default)", "documents", "inquiries"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "EmailJS (Order Confirmation)",
+			"item": [
+				{
+					"name": "Send Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{"key": "Content-Type", "value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"service_id\": \"{{emailjs_service_id}}\",\n  \"template_id\": \"{{emailjs_template_id}}\",\n  \"user_id\": \"{{emailjs_public_key}}\",\n  \"template_params\": {\n    \"to_name\": \"Customer Name\",\n    \"to_email\": \"customer@example.com\",\n    \"order_id\": \"ORD-123456\",\n    \"total_amount\": \"5000\"\n  }\n}"
+						},
+						"url": {
+							"raw": "https://api.emailjs.com/api/v1.0/email/send",
+							"protocol": "https",
+							"host": ["api", "emailjs", "com"],
+							"path": ["api", "v1.0", "email", "send"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "firebase_project_id",
+			"value": "demo-project",
+			"type": "string"
+		},
+		{
+			"key": "product_id",
+			"value": "SAMPLE_PRODUCT_ID",
+			"type": "string"
+		},
+		{
+			"key": "emailjs_service_id",
+			"value": "service_wanl11i",
+			"type": "string"
+		},
+		{
+			"key": "emailjs_template_id",
+			"value": "template_9isitmw",
+			"type": "string"
+		},
+		{
+			"key": "emailjs_public_key",
+			"value": "OyFOVHnKDcQ3-Iqs8",
+			"type": "string"
+		}
+	]
+}
