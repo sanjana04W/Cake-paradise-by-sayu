@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deploy Firebase Rules</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 60px auto; padding: 20px; }
+    button { background: #B76E79; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    pre { background: #f5f5f5; padding: 12px; border-radius: 6px; font-size: 13px; overflow-x: auto; }
+    .ok  { color: green; font-weight: bold; }
+    .err { color: red;   font-weight: bold; }
+    #log { margin-top: 20px; }
+    .step { margin: 8px 0; padding: 8px 12px; border-radius: 6px; background: #f9f9f9; border-left: 4px solid #ccc; }
+    .step.done { border-color: green; }
+    .step.fail { border-color: red; }
+  </style>
+</head>
+<body>
+  <h2>🎂 Cake Paradise — Deploy Firebase Rules</h2>
+  <p>This will set Firestore &amp; Storage rules to <strong>allow read/write</strong> so admin edits sync to the website.</p>
+  <button id="btn" onclick="deploy()">Deploy Rules Now</button>
+  <div id="log"></div>
+
+  <script>
+    const PROJECT = 'cake-paradise-969e6';
+    const API_KEY = 'AIzaSyCO9oNrVSiSBf4qj3XN6OitWrggH85Lr8w';
+
+    const FIRESTORE_RULES = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
+
+    const STORAGE_RULES = `rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
+
+    const log = (msg, cls = '') => {
+      const d = document.createElement('div');
+      d.className = 'step' + (cls ? ' ' + cls : '');
+      d.textContent = msg;
+      document.getElementById('log').appendChild(d);
+    };
+
+    async function deploy() {
+      const btn = document.getElementById('btn');
+      btn.disabled = true;
+      document.getElementById('log').innerHTML = '';
+
+      try {
+        // Step 1: Sign in anonymously to get an ID token
+        log('⏳ Signing in to Firebase...');
+        const signInRes = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
+          { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ returnSecureToken: true }) }
+        );
+        const signInData = await signInRes.json();
+        if (!signInData.idToken) throw new Error('Sign-in failed: ' + JSON.stringify(signInData));
+        const token = signInData.idToken;
+        log('✅ Signed in.', 'done');
+
+        // Step 2: Create Firestore ruleset
+        log('⏳ Creating Firestore ruleset...');
+        const fsCreate = await fetch(
+          `https://firebaserules.googleapis.com/v1/projects/${PROJECT}/rulesets`,
+          { method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ source: { files: [{ name: 'firestore.rules', content: FIRESTORE_RULES }] } })
+          }
+        );
+        const fsData = await fsCreate.json();
+        if (!fsData.name) {
+          log('⚠️  Firestore ruleset create response: ' + JSON.stringify(fsData));
+          throw new Error('Firestore ruleset creation failed — anonymous token lacks permission. See instructions below.');
+        }
+        const fsRuleset = fsData.name;
+        log('✅ Firestore ruleset created: ' + fsRuleset, 'done');
+
+        // Step 3: Release Firestore ruleset
+        log('⏳ Publishing Firestore rules...');
+        const fsRelease = await fetch(
+          `https://firebaserules.googleapis.com/v1/projects/${PROJECT}/releases/cloud.firestore`,
+          { method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({
+              release: { name: `projects/${PROJECT}/releases/cloud.firestore`, rulesetName: fsRuleset },
+              updateMask: 'rulesetName'
+            })
+          }
+        );
+        const fsReleaseData = await fsRelease.json();
+        if (fsReleaseData.error) throw new Error('Firestore release failed: ' + fsReleaseData.error.message);
+        log('✅ Firestore rules published!', 'done');
+
+        // Step 4: Create Storage ruleset
+        log('⏳ Creating Storage ruleset...');
+        const stCreate = await fetch(
+          `https://firebaserules.googleapis.com/v1/projects/${PROJECT}/rulesets`,
+          { method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ source: { files: [{ name: 'storage.rules', content: STORAGE_RULES }] } })
+          }
+        );
+        const stData = await stCreate.json();
+        if (!stData.name) throw new Error('Storage ruleset creation failed');
+        const stRuleset = stData.name;
+        log('✅ Storage ruleset created.', 'done');
+
+        // Step 5: Release Storage ruleset
+        log('⏳ Publishing Storage rules...');
+        const stRelease = await fetch(
+          `https://firebaserules.googleapis.com/v1/projects/${PROJECT}/releases/firebase.storage%2F${PROJECT}.firebasestorage.app`,
+          { method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({
+              release: {
+                name: `projects/${PROJECT}/releases/firebase.storage/${PROJECT}.firebasestorage.app`,
+                rulesetName: stRuleset
+              },
+              updateMask: 'rulesetName'
+            })
+          }
+        );
+        const stReleaseData = await stRelease.json();
+        if (stReleaseData.error) log('⚠️  Storage release: ' + stReleaseData.error.message);
+        else log('✅ Storage rules published!', 'done');
+
+        log('🎉 Done! Refresh your admin and website tabs. Changes will now sync in real-time.', 'done');
+
+      } catch (err) {
+        log('❌ ' + err.message, 'fail');
+        log('──────────────────────────────────────────────────────');
+        log('The Firebase Rules API requires Google OAuth — anonymous tokens are rejected.');
+        log('Please do it manually (takes 30 seconds):');
+        log('1. Open: https://console.firebase.google.com/project/cake-paradise-969e6/firestore/rules');
+        log('2. Paste the rules below and click Publish');
+        const pre = document.createElement('pre');
+        pre.textContent = FIRESTORE_RULES;
+        document.getElementById('log').appendChild(pre);
+        log('3. Open: https://console.firebase.google.com/project/cake-paradise-969e6/storage/rules');
+        log('4. Paste the rules below and click Publish');
+        const pre2 = document.createElement('pre');
+        pre2.textContent = STORAGE_RULES;
+        document.getElementById('log').appendChild(pre2);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
