@@ -264,9 +264,4 @@ All branding, product images, and business content belong to **Cake Paradise by 
 
 ## 👨‍💻 Developed By
 
-### Funtastic4 Team
-
-Software Design Project
-
-Faculty of Engineering Technology  
-The Open University of Sri Lanka
+### wenuri sanjana
