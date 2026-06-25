@@ -44,7 +44,7 @@ const Cart = () => {
           
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cream">
+            <div className="bg-champagne-light rounded-3xl p-6 md:p-8 shadow-sm border border-champagne">
               <div className="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-cream text-sm font-semibold text-charcoal/60 uppercase tracking-wider">
                 <div className="col-span-6">Product</div>
                 <div className="col-span-3 text-center">Quantity</div>
@@ -120,7 +120,7 @@ const Cart = () => {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-cream sticky top-24">
+            <div className="bg-champagne-light rounded-3xl p-6 md:p-8 shadow-sm border border-champagne sticky top-24">
               <h3 className="font-display font-bold text-xl text-dark-chocolate mb-6 pb-4 border-b border-cream">Order Summary</h3>
               
               <div className="space-y-4 mb-6 text-sm">

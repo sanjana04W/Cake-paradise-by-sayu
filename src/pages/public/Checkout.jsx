@@ -314,7 +314,7 @@ const Checkout = () => {
         {/* ── OTP VERIFICATION SCREEN ── */}
         {step === 'otp' && (
           <div className="max-w-md mx-auto">
-            <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-cream text-center">
+            <div className="bg-champagne-light rounded-3xl p-8 md:p-10 shadow-sm border border-champagne text-center">
               {/* Icon */}
               <div className="inline-flex items-center justify-center w-20 h-20 bg-rose-gold/10 rounded-full mb-6">
                 <Mail size={40} className="text-rose-gold" />
@@ -399,7 +399,7 @@ const Checkout = () => {
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Form */}
             <div className="lg:w-2/3">
-              <div className="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-cream">
+              <div className="bg-champagne-light rounded-3xl p-6 md:p-10 shadow-sm border border-champagne">
                 <form onSubmit={handleConfirmOrder}>
                   <h2 className="text-xl font-display font-bold text-dark-chocolate mb-6 pb-2 border-b border-cream">Contact Information</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -592,12 +592,12 @@ const Checkout = () => {
 
             {/* Order Summary */}
             <div className="lg:w-1/3">
-              <div className="bg-cream/30 rounded-3xl p-6 shadow-sm border border-cream sticky top-24">
+              <div className="bg-champagne-light rounded-3xl p-6 shadow-sm border border-champagne sticky top-24">
                 <h3 className="font-display font-bold text-lg text-dark-chocolate mb-4">Order Summary</h3>
                 <div className="max-h-[40vh] overflow-y-auto mb-4 space-y-4 pr-2">
                   {items.map(item => (
                     <div key={item.itemKey} className="flex space-x-3">
-                      <div className="w-16 h-16 bg-white rounded-lg flex-shrink-0 flex items-center justify-center relative border border-cream overflow-hidden">
+                      <div className="w-16 h-16 bg-champagne-light rounded-lg flex-shrink-0 flex items-center justify-center relative border border-champagne overflow-hidden">
                         {item.image ? (
                           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                         ) : (
