@@ -1,6 +1,10 @@
-# 🎂 Cake Paradise by Sayu
+# Cake Paradise by Sayu 🎂
 
-A modern and responsive e-commerce platform built for **Cake Paradise by Sayu**, allowing customers to browse products, place orders, request custom cakes, and interact with the bakery through a seamless online experience.
+A modern and responsive e-commerce platform built for **Cake Paradise by Sayu**, a custom cake business in Sri Lanka. The platform transforms traditional Facebook-based ordering into a complete digital storefront with online ordering, custom cake requests, and centralized management.
+
+![Status](https://img.shields.io/badge/status-active-success)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Made with](https://img.shields.io/badge/made%20with-React%20%7C%20Firebase-orange)
 
 ---
 
