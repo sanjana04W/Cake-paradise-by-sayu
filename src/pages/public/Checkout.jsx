@@ -240,6 +240,7 @@ const Checkout = () => {
 
     try {
       let receiptUrl = null;
+      let finalOrderId = null;
 
       const processOrder = async () => {
         if (formData.paymentMethod === 'bank' && receiptFile) {
@@ -262,7 +263,9 @@ const Checkout = () => {
         };
 
         const cleanOrderData = JSON.parse(JSON.stringify(orderData));
-        await createOrder(cleanOrderData);
+        const result = await createOrder(cleanOrderData);
+        if (result && result.orderId) finalOrderId = result.orderId;
+        
         sendOrderConfirmation(cleanOrderData); // fire-and-forget
       };
 
@@ -282,7 +285,9 @@ const Checkout = () => {
 
       isOrderCompleteRef.current = true;
       clearCart();
-      navigate('/order-success');
+      
+      const idToPass = finalOrderId || `ORD-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+      navigate('/order-success', { state: { orderId: idToPass } });
     } catch (error) {
       console.error('Error placing order:', error);
       alert('Failed to place order. Please try again.');

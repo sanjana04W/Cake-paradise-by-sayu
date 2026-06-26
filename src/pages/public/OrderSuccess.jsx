@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { CheckCircle, ShoppingBag, ArrowRight } from 'lucide-react';
 
 const OrderSuccess = () => {
-  // In a real app, you'd fetch the order ID from route state or URL params
-  const orderId = `ORD-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+  const location = useLocation();
+  const [orderId] = useState(() => {
+    return location.state?.orderId || `ORD-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+  });
 
   return (
     <>
