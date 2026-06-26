@@ -36,7 +36,7 @@ const OrderSuccess = () => {
             We will contact you via WhatsApp shortly to confirm your order details, delivery time, and provide payment instructions.
           </p>
           <p>
-            If you have any questions, please contact us at <strong>+94 77 123 4567</strong> or reply to your confirmation email.
+            If you have any questions, please contact us at <strong>+94 74 359 3784</strong> or reply to your confirmation email.
           </p>
         </div>
 

@@ -125,10 +125,12 @@ const Checkout = () => {
 
   const { remaining: timeLeft, display: timeDisplay } = useCountdown(otpSentAt ? OTP_EXPIRY_SECONDS : 0, otpSentAt);
 
+  const isOrderCompleteRef = React.useRef(false);
+
   // Redirect if cart is empty
   React.useEffect(() => {
     if (loading) return;
-    if (items.length === 0) navigate('/cart');
+    if (items.length === 0 && !isOrderCompleteRef.current) navigate('/cart');
     else if (!user) navigate('/login?redirect=/checkout');
   }, [items, user, loading, navigate]);
 
@@ -278,6 +280,7 @@ const Checkout = () => {
         }
       }
 
+      isOrderCompleteRef.current = true;
       clearCart();
       navigate('/order-success');
     } catch (error) {
