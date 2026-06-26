@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { Helmet } from 'react-helmet-async';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, X, CheckCircle } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +10,18 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { customerLogin, user } = useAuth();
+  const { customerLogin, user, resetPassword } = useAuth();
   const navigate = useNavigate();
+
+  // Forgot password modal state
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotNewPass, setForgotNewPass] = useState('');
+  const [forgotConfirmPass, setForgotConfirmPass] = useState('');
+  const [forgotError, setForgotError] = useState('');
+  const [forgotSuccess, setForgotSuccess] = useState(false);
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [showForgotPass, setShowForgotPass] = useState(false);
 
   React.useEffect(() => {
     if (user) {
@@ -37,7 +47,40 @@ const Login = () => {
     }
   };
 
+  const handleForgotSubmit = async (e) => {
+    e.preventDefault();
+    setForgotError('');
+    if (forgotNewPass.length < 6) {
+      setForgotError('Password must be at least 6 characters.');
+      return;
+    }
+    if (forgotNewPass !== forgotConfirmPass) {
+      setForgotError('Passwords do not match.');
+      return;
+    }
+    setForgotLoading(true);
+    try {
+      await resetPassword(forgotEmail, forgotNewPass);
+      setForgotSuccess(true);
+    } catch (err) {
+      setForgotError(err.message);
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
+  const closeForgot = () => {
+    setShowForgot(false);
+    setForgotEmail('');
+    setForgotNewPass('');
+    setForgotConfirmPass('');
+    setForgotError('');
+    setForgotSuccess(false);
+    setShowForgotPass(false);
+  };
+
   return (
+    <>
     <div className="min-h-screen bg-cream pt-28 pb-12">
       <Helmet>
         <title>Login | Cake Paradise</title>
@@ -196,12 +239,13 @@ const Login = () => {
 
                 {/* Forgot password */}
                 <div className="flex justify-end">
-                  <a
-                    href="#"
+                  <button
+                    type="button"
+                    onClick={() => { setShowForgot(true); setForgotEmail(email); }}
                     className="text-sm text-rose-gold hover:text-rose-gold-dark font-medium transition-colors"
                   >
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
 
                 {/* Submit button */}
@@ -254,6 +298,105 @@ const Login = () => {
         </div>
       </div>
     </div>
+
+    {/* ===== Forgot Password Modal ===== */}
+    {showForgot && (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="bg-champagne-light rounded-3xl shadow-2xl w-full max-w-md p-8 border border-champagne relative">
+          <button onClick={closeForgot} className="absolute top-4 right-4 text-charcoal/50 hover:text-dark-chocolate transition-colors">
+            <X className="w-5 h-5" />
+          </button>
+
+          {forgotSuccess ? (
+            <div className="text-center py-4">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-display font-bold text-dark-chocolate mb-2">Password Updated!</h3>
+              <p className="text-charcoal/70 text-sm mb-6">Your password has been successfully changed. You can now sign in with your new password.</p>
+              <button
+                onClick={closeForgot}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-gold to-rose-gold-dark text-white font-bold hover:opacity-90 transition-opacity"
+              >
+                Back to Sign In
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="mb-6">
+                <h3 className="text-2xl font-display font-bold text-dark-chocolate mb-1">Reset Password</h3>
+                <p className="text-charcoal/60 text-sm">Enter your email and choose a new password.</p>
+              </div>
+
+              {forgotError && (
+                <div className="flex items-center gap-2 bg-rose-gold/10 border border-rose-gold/20 text-rose-gold-dark p-3 rounded-xl mb-4 text-sm">
+                  <span>⚠</span> {forgotError}
+                </div>
+              )}
+
+              <form onSubmit={handleForgotSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-charcoal mb-2">Email Address</label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-rose-gold/50" />
+                    <input
+                      type="email"
+                      required
+                      value={forgotEmail}
+                      onChange={e => setForgotEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-rose-gold focus:ring-2 focus:ring-rose-gold/10 transition-all bg-cream/50 text-dark-chocolate placeholder:text-gray-400"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-charcoal mb-2">New Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-rose-gold/50" />
+                    <input
+                      type={showForgotPass ? 'text' : 'password'}
+                      required
+                      value={forgotNewPass}
+                      onChange={e => setForgotNewPass(e.target.value)}
+                      placeholder="Minimum 6 characters"
+                      className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-rose-gold focus:ring-2 focus:ring-rose-gold/10 transition-all bg-cream/50 text-dark-chocolate placeholder:text-gray-400"
+                    />
+                    <button type="button" onClick={() => setShowForgotPass(p => !p)} className="absolute right-4 top-1/2 -translate-y-1/2 text-charcoal-light hover:text-rose-gold transition-colors" tabIndex={-1}>
+                      {showForgotPass ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-charcoal mb-2">Confirm New Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-rose-gold/50" />
+                    <input
+                      type={showForgotPass ? 'text' : 'password'}
+                      required
+                      value={forgotConfirmPass}
+                      onChange={e => setForgotConfirmPass(e.target.value)}
+                      placeholder="Repeat new password"
+                      className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-rose-gold focus:ring-2 focus:ring-rose-gold/10 transition-all bg-cream/50 text-dark-chocolate placeholder:text-gray-400"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={forgotLoading}
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-rose-gold to-rose-gold-dark text-white font-bold hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-70 mt-2"
+                >
+                  {forgotLoading ? 'Updating…' : 'Set New Password'}
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    )}
+  </>
   );
 };
 

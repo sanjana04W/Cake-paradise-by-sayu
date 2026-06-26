@@ -147,6 +147,16 @@ export const AuthProvider = ({ children }) => {
     return { user: userData };
   };
 
+  const resetPassword = async (email, newPassword) => {
+    const registry = getRegistry();
+    const index = registry.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+    if (index === -1) {
+      throw new Error('No account found with this email address.');
+    }
+    registry[index].password = newPassword;
+    saveRegistry(registry);
+  };
+
   const updateCustomerProfile = async (email, updates) => {
     const registry = getRegistry();
     let index = registry.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
@@ -223,6 +233,7 @@ export const AuthProvider = ({ children }) => {
     updateCustomerProfile,
     logoutCustomer,
     checkPermission,
+    resetPassword,
     role: adminData?.role || null,
     setDemoRole,
   };
