@@ -27,7 +27,7 @@ const CustomerOrderDetailModal = ({ order, onClose }) => {
         <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50">
           <div>
             <div className="flex items-center gap-3">
-              <h2 className="text-2xl font-bold font-display text-gray-900">Order #{order.id?.slice(0, 8) || order.orderId?.slice(0, 8)}</h2>
+              <h2 className="text-2xl font-bold font-display text-gray-900">Order #{order.orderId || order.id}</h2>
               <span className={`px-3 py-1 rounded-full text-xs font-bold border uppercase tracking-wider ${getStatusColor(order.orderStatus || order.status)}`}>
                 {(order.orderStatus || order.status || 'Pending').replace('-', ' ')}
               </span>
@@ -56,7 +56,7 @@ const CustomerOrderDetailModal = ({ order, onClose }) => {
                     </div>
                     <div>
                       <h4 className="font-bold text-gray-900">{item.name}</h4>
-                      <p className="text-sm text-gray-500">Qty: {item.quantity} × {formatCurrency(item.price)}</p>
+                      <p className="text-sm text-gray-500">Qty: {item.quantity} × {formatCurrency(item.unitPrice ?? item.price ?? 0)}</p>
                       {item.attributes && (
                         <div className="mt-1 flex flex-wrap gap-1">
                           {Object.entries(item.attributes).map(([k, v]) => (
@@ -66,7 +66,7 @@ const CustomerOrderDetailModal = ({ order, onClose }) => {
                       )}
                     </div>
                   </div>
-                  <div className="font-bold text-gray-900">{formatCurrency(item.price * item.quantity)}</div>
+                  <div className="font-bold text-gray-900">{formatCurrency(item.lineTotal ?? ((item.unitPrice ?? item.price ?? 0) * item.quantity))}</div>
                 </div>
               ))}
             </div>
