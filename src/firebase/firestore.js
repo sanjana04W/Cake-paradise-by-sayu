@@ -361,6 +361,24 @@ export const updateOrderStatus = async (id, newStatus, updatedBy = 'admin') => {
   }
 };
 
+export const markOrderRead = async (id) => {
+  try {
+    if (isDemoMode) {
+      const orders = getLocalOrders();
+      const idx = orders.findIndex(o => o.id === id);
+      if (idx !== -1) {
+        orders[idx].notificationRead = true;
+        saveLocalOrders(orders);
+      }
+      return;
+    }
+    const orderRef = doc(db, 'orders', id);
+    await updateDoc(orderRef, { notificationRead: true });
+  } catch (error) {
+    console.error('Error marking order as read:', error);
+  }
+};
+
 export const subscribeToOrders = (callback) => {
   if (isDemoMode) {
     const emit = () => {

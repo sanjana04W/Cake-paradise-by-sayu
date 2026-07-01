@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Upload, Calendar, Users, MessageSquare, CheckCircle, X } from 'lucide-react';
-import { saveLocalInquiry } from '../../utils/inquiryStore';
+import { saveContactMessage } from '../../utils/messageStore';
 
 const CustomOrder = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,18 +23,12 @@ const CustomOrder = () => {
     setIsSubmitting(true);
     
     try {
-      // Save to localStorage so it immediately appears in the admin panel
-      saveLocalInquiry({
-        customerInfo: {
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-        },
-        eventType: formData.eventType,
-        eventDate: formData.eventDate,
-        targetServings: formData.targetServings,
-        detailedDescription: formData.detailedDescription,
-        estimatedBudget: 'TBD',
+      // Save as a contact message so it appears in the admin panel with a notification
+      await saveContactMessage({
+        name: formData.name,
+        email: formData.email || `${formData.phone}@whatsapp.local`, // Fallback for email
+        subject: `Custom Cake Request: ${formData.eventType}`,
+        message: `Phone: ${formData.phone}\nEvent Type: ${formData.eventType}\nEvent Date: ${formData.eventDate}\nGuests: ${formData.targetServings}\n\nRequirements:\n${formData.detailedDescription}`,
       });
 
       setIsSuccess(true);

@@ -3,16 +3,22 @@ import { Bell, Menu, Search, Mail, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router';
 import { subscribeToMessages, markMessageRead } from '../../utils/messageStore';
+import { subscribeToOrders, markOrderRead } from '../../firebase/firestore';
 
 const AdminHeader = ({ onMenuClick }) => {
   const { adminData, setDemoRole } = useAuth();
   const navigate = useNavigate();
   const [notifOpen, setNotifOpen] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [orders, setOrders] = useState([]);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
     return subscribeToMessages(setMessages);
+  }, []);
+
+  useEffect(() => {
+    return subscribeToOrders(setOrders);
   }, []);
 
   // Close dropdown on outside click
@@ -26,13 +32,43 @@ const AdminHeader = ({ onMenuClick }) => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const unread = messages.filter(m => !m.read);
-  const unreadCount = unread.length;
+  const unreadMessages = messages.filter(m => !m.read).map(m => ({
+    id: `msg-${m.id}`,
+    type: 'message',
+    title: m.name,
+    subtitle: m.subject,
+    description: m.message,
+    item: m,
+    date: m.createdAt
+  }));
 
-  const handleNotifClick = (msg) => {
-    markMessageRead(msg.id);
+  const pendingOrders = orders.filter(o => o.orderStatus === 'pending-confirmation' && !o.notificationRead).map(o => ({
+    id: `ord-${o.id}`,
+    type: 'order',
+    title: `New Order: ${o.orderId}`,
+    subtitle: o.customerInfo?.name || 'Customer',
+    description: `Total: LKR ${o.totalAmount?.toLocaleString()}`,
+    item: o,
+    date: o.createdAt
+  }));
+
+  const notifications = [...pendingOrders, ...unreadMessages].sort((a, b) => {
+    const timeA = a.date?.toDate ? a.date.toDate().getTime() : new Date(a.date || 0).getTime();
+    const timeB = b.date?.toDate ? b.date.toDate().getTime() : new Date(b.date || 0).getTime();
+    return timeB - timeA;
+  });
+
+  const unreadCount = notifications.length;
+
+  const handleNotifClick = (notif) => {
     setNotifOpen(false);
-    navigate('/messages');
+    if (notif.type === 'message') {
+      markMessageRead(notif.item.id);
+      navigate('/messages');
+    } else {
+      markOrderRead(notif.item.id);
+      navigate('/orders');
+    }
   };
 
   return (
@@ -104,41 +140,47 @@ const AdminHeader = ({ onMenuClick }) => {
           {notifOpen && (
             <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 overflow-hidden">
               <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Unread Messages</p>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Notifications</p>
                 <button onClick={() => setNotifOpen(false)} className="text-gray-400 hover:text-gray-600">
                   <X size={14} />
                 </button>
               </div>
 
-              {unread.length === 0 ? (
-                <div className="p-6 text-center text-gray-400 text-sm">No unread messages</div>
+              {notifications.length === 0 ? (
+                <div className="p-6 text-center text-gray-400 text-sm">No new notifications</div>
               ) : (
                 <div className="max-h-72 overflow-y-auto divide-y divide-gray-50">
-                  {unread.slice(0, 8).map(msg => (
+                  {notifications.slice(0, 8).map(notif => (
                     <button
-                      key={msg.id}
-                      onClick={() => handleNotifClick(msg)}
+                      key={notif.id}
+                      onClick={() => handleNotifClick(notif)}
                       className="w-full text-left px-4 py-3 hover:bg-[#B76E79]/5 transition-colors flex items-start gap-3"
                     >
-                      <div className="w-8 h-8 rounded-full bg-[#B76E79]/20 text-[#B76E79] flex items-center justify-center font-bold text-sm flex-shrink-0">
-                        {msg.name?.charAt(0)?.toUpperCase()}
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 ${notif.type === 'order' ? 'bg-orange-100 text-orange-600' : 'bg-[#B76E79]/20 text-[#B76E79]'}`}>
+                        {notif.type === 'order' ? '📦' : notif.title.charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold text-gray-900 truncate">{msg.name}</p>
-                        <p className="text-xs text-gray-500 truncate">{msg.subject}</p>
-                        <p className="text-xs text-gray-400 truncate">{msg.message}</p>
+                        <p className="text-sm font-semibold text-gray-900 truncate">{notif.title}</p>
+                        <p className="text-xs text-gray-500 truncate">{notif.subtitle}</p>
+                        <p className="text-xs text-gray-400 truncate">{notif.description}</p>
                       </div>
                     </button>
                   ))}
                 </div>
               )}
 
-              <div className="px-4 py-3 border-t border-gray-100 bg-gray-50">
+              <div className="px-4 py-3 border-t border-gray-100 bg-gray-50 flex gap-2">
+                <button
+                  onClick={() => { setNotifOpen(false); navigate('/orders'); }}
+                  className="text-sm font-semibold text-[#B76E79] hover:underline w-1/2 text-center border-r border-gray-200"
+                >
+                  Orders
+                </button>
                 <button
                   onClick={() => { setNotifOpen(false); navigate('/messages'); }}
-                  className="text-sm font-semibold text-[#B76E79] hover:underline w-full text-center"
+                  className="text-sm font-semibold text-[#B76E79] hover:underline w-1/2 text-center"
                 >
-                  View all messages
+                  Messages
                 </button>
               </div>
             </div>
