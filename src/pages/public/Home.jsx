@@ -20,18 +20,18 @@ const Home = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/40 via-transparent to-transparent"></div>
         <div className="container mx-auto px-4 md:px-8 pt-32 pb-20 md:pt-40 md:pb-32 relative z-10 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 space-y-6 md:pr-12 text-center md:text-left">
-            <span className="inline-block px-3 py-1 bg-white/50 rounded-full text-rose-gold text-sm font-semibold uppercase tracking-wider backdrop-blur-sm">
+            <span className="inline-block px-3 py-1 bg-white/50 rounded-full text-rose-gold text-sm font-semibold uppercase tracking-wider backdrop-blur-sm animate-fade-in">
               Crafted with Love in Sri Lanka
             </span>
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-dark-chocolate leading-tight">
+            <h1 className="text-4xl md:text-6xl font-display font-bold text-dark-chocolate leading-tight animate-slide-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
               Every Bite is a Taste of <span className="text-rose-gold relative whitespace-nowrap">Paradise
                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-warm-pink/40" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none"/></svg>
               </span>
             </h1>
-            <p className="text-lg text-charcoal/80 max-w-lg mx-auto md:mx-0">
+            <p className="text-lg text-charcoal/80 max-w-lg mx-auto md:mx-0 animate-slide-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
               Premium, handcrafted cakes for your most special moments. Order today and make your celebrations truly unforgettable.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4 animate-slide-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
               <Link to="/shop" className="w-full sm:w-auto px-6 py-4 bg-rose-gold text-white rounded-full font-semibold hover:bg-deep-burgundy transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center whitespace-nowrap">
                 Shop Our Cakes
               </Link>
@@ -40,44 +40,44 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="md:w-1/2 mt-12 md:mt-0 relative">
-            <div className="aspect-square rounded-full bg-rose-gold/10 absolute inset-0 transform scale-95 origin-bottom-right blur-3xl"></div>
-            <div className="relative aspect-[4/3] md:aspect-square bg-white rounded-t-full rounded-bl-full shadow-2xl overflow-hidden border-8 border-white flex items-center justify-center">
-               <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=800&auto=format&fit=crop" alt="Beautiful Cake" className="w-full h-full object-cover" />
+          <div className="md:w-1/2 mt-12 md:mt-0 relative animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+            <div className="aspect-square rounded-full bg-rose-gold/10 absolute inset-0 transform scale-95 origin-bottom-right blur-3xl animate-pulse-soft"></div>
+            <div className="relative aspect-[4/3] md:aspect-square bg-white rounded-t-full rounded-bl-full shadow-2xl overflow-hidden border-8 border-white flex items-center justify-center animate-float">
+               <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?q=80&w=800&auto=format&fit=crop" alt="Beautiful Cake" className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-12 bg-white">
+      <section className="py-16 md:py-24 bg-white relative">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-start space-x-4 p-6 rounded-2xl bg-cream/50 hover:bg-cream transition-colors">
-              <div className="bg-rose-gold/10 p-3 rounded-full text-rose-gold shrink-0">
-                <Star size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            <div className="group flex flex-col items-center text-center space-y-4 p-8 rounded-3xl bg-cream/50 hover:bg-cream hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-champagne cursor-pointer">
+              <div className="bg-rose-gold/10 p-4 rounded-full text-rose-gold shrink-0 group-hover:animate-bounce-soft group-hover:bg-rose-gold group-hover:text-white transition-colors duration-300">
+                <Star size={32} />
               </div>
               <div>
-                <h3 className="font-display font-semibold text-dark-chocolate text-lg mb-1">Premium Ingredients</h3>
-                <p className="text-charcoal/70 text-sm">We use only the finest ingredients to ensure perfect taste.</p>
+                <h3 className="font-display font-semibold text-dark-chocolate text-xl mb-2">Premium Ingredients</h3>
+                <p className="text-charcoal/70">We use only the finest ingredients to ensure perfect taste.</p>
               </div>
             </div>
-            <div className="flex items-start space-x-4 p-6 rounded-2xl bg-cream/50 hover:bg-cream transition-colors">
-              <div className="bg-rose-gold/10 p-3 rounded-full text-rose-gold shrink-0">
-                <Gift size={24} />
+            <div className="group flex flex-col items-center text-center space-y-4 p-8 rounded-3xl bg-cream/50 hover:bg-cream hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-champagne cursor-pointer">
+              <div className="bg-rose-gold/10 p-4 rounded-full text-rose-gold shrink-0 group-hover:animate-bounce-soft group-hover:bg-rose-gold group-hover:text-white transition-colors duration-300">
+                <Gift size={32} />
               </div>
               <div>
-                <h3 className="font-display font-semibold text-dark-chocolate text-lg mb-1">Custom Designs</h3>
-                <p className="text-charcoal/70 text-sm">Tailor-made designs bringing your dream cakes to life.</p>
+                <h3 className="font-display font-semibold text-dark-chocolate text-xl mb-2">Custom Designs</h3>
+                <p className="text-charcoal/70">Tailor-made designs bringing your dream cakes to life.</p>
               </div>
             </div>
-            <div className="flex items-start space-x-4 p-6 rounded-2xl bg-cream/50 hover:bg-cream transition-colors">
-              <div className="bg-rose-gold/10 p-3 rounded-full text-rose-gold shrink-0">
-                <Truck size={24} />
+            <div className="group flex flex-col items-center text-center space-y-4 p-8 rounded-3xl bg-cream/50 hover:bg-cream hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-champagne cursor-pointer">
+              <div className="bg-rose-gold/10 p-4 rounded-full text-rose-gold shrink-0 group-hover:animate-bounce-soft group-hover:bg-rose-gold group-hover:text-white transition-colors duration-300">
+                <Truck size={32} />
               </div>
               <div>
-                <h3 className="font-display font-semibold text-dark-chocolate text-lg mb-1">Careful Delivery</h3>
-                <p className="text-charcoal/70 text-sm">Safe and prompt delivery across Colombo and suburbs.</p>
+                <h3 className="font-display font-semibold text-dark-chocolate text-xl mb-2">Careful Delivery</h3>
+                <p className="text-charcoal/70">Safe and prompt delivery across Colombo and suburbs.</p>
               </div>
             </div>
           </div>
@@ -102,11 +102,11 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-              {categories.slice(0, 5).map((cat) => (
-                <Link key={cat.id} to={`/shop/${cat.slug}`} className="group flex flex-col items-center">
-                  <div className="relative rounded-2xl overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-300 aspect-square w-full mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/0 group-hover:to-black/20 transition-colors z-10"></div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+              {categories.slice(0, 5).map((cat, index) => (
+                <Link key={cat.id} to={`/shop/${cat.slug}`} className="group flex flex-col items-center hover:-translate-y-2 transition-transform duration-300" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="relative rounded-full overflow-hidden shadow-md group-hover:shadow-2xl transition-all duration-300 aspect-square w-full mb-6 border-4 border-white group-hover:border-rose-gold/20">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-black/0 group-hover:to-black/30 transition-colors z-10"></div>
                     {/* Category Image */}
                     <img src={cat.image || 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'} alt={cat.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   </div>
@@ -163,15 +163,15 @@ const Home = () => {
           const imageUrl = product.images?.[0] || fallbackImages[index] || fallbackImages[0];
 
           return (
-            <Link key={product.id} to={`/product/${product.slug}`} className="group flex flex-col bg-champagne-light rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-champagne">
-              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+            <Link key={product.id} to={`/product/${product.slug}`} className="group flex flex-col bg-champagne-light rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-champagne">
+              <div className="relative aspect-[4/5] overflow-hidden bg-gray-100">
                 <img
                   src={imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-chocolate/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                  <span className="text-white font-semibold text-sm border border-white/70 rounded-full px-4 py-1">View Details →</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-chocolate/60 via-dark-chocolate/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                  <span className="text-white font-semibold text-sm border border-white/70 rounded-full px-6 py-2 backdrop-blur-sm group-hover:animate-bounce-soft">View Details</span>
                 </div>
                 {product.isFeatured && (
                   <span className="absolute top-3 left-3 px-2.5 py-1 bg-white/90 text-[10px] uppercase tracking-wider font-bold text-rose-gold rounded-full shadow-sm">
@@ -202,11 +202,11 @@ const Home = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-50"></div>
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center">
           <h2 className="text-3xl md:text-5xl font-display font-bold !text-white mb-6">Have a Special Design in Mind?</h2>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto mb-10">
+          <p className="text-lg text-white/90 max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
             We love bringing your wildest cake dreams to life. From gravity-defying structures to intricate sugar art, let's create something extraordinary together.
           </p>
-          <Link to="/custom-order" className="inline-block px-10 py-4 bg-white text-rose-gold rounded-full font-bold text-lg hover:bg-champagne transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-            Start Your Custom Order
+          <Link to="/custom-order" className="inline-block px-10 py-4 bg-white text-rose-gold rounded-full font-bold text-lg hover:bg-champagne hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 shadow-xl group">
+            <span className="inline-block group-hover:animate-bounce-soft">Start Your Custom Order</span>
           </Link>
         </div>
       </section>
