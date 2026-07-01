@@ -8,53 +8,52 @@ A modern and responsive e-commerce platform built for **Cake Paradise by Sayu**,
 
 ---
 
-## 📖 About The Project
+# 📖 About the Project
 
-Cake Paradise by Sayu is an online bakery management and ordering platform designed to transform traditional social-media-based ordering into a professional digital storefront.
+Cake Paradise by Sayu is a full-stack bakery management and online ordering system developed to digitize the business operations of a custom cake shop.
 
-The system enables customers to:
+Instead of relying solely on Facebook or WhatsApp orders, customers can conveniently browse products, place orders, request customized cakes, and communicate with the bakery through a professional web application.
 
-- Browse cake collections
-- Search and filter products
-- Place online orders
-- Submit custom cake requests
-- Contact the bakery directly
-
-The platform also includes an administration panel for managing products, orders, customer inquiries, and business operations.
+The system also provides an Admin Dashboard that allows administrators to manage products, categories, customer orders, inquiries, and website content efficiently.
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-### 🛍 Customer Features
+## 🛒 Customer Features
 
-- Responsive User Interface
-- Product Browsing
-- Product Search & Filtering
-- Product Details View
-- Shopping Cart
-- Checkout System
-- Custom Cake Requests
-- Contact Form
-- Testimonials Section
-- Mobile-Friendly Design
+- Browse all available cakes
+- Search cakes instantly
+- Filter cakes by category
+- View detailed product information
+- Add products to shopping cart
+- Secure checkout process
+- Submit custom cake requests
+- Contact bakery directly
+- View customer testimonials
+- Fully responsive design
 
-### 🔐 Admin Features
+---
 
-- Product Management
+## 🔐 Admin Features
+
+- Secure Admin Login
+- Dashboard Overview
+- Product Management (CRUD)
+- Category Management
 - Order Management
 - Customer Management
-- Inquiry Management
-- Dashboard Analytics
-- Inventory Tracking
-- Secure Authentication
+- Contact Message Management
+- Inventory Management
+- Firebase Authentication
 
 ---
 
-## 🎂 Product Categories
+# 🎂 Product Categories
 
 - Birthday Cakes
 - Wedding Cakes
+- Anniversary Cakes
 - Cupcakes
 - Brownies
 - Pastries
@@ -64,77 +63,92 @@ The platform also includes an administration panel for managing products, orders
 
 ---
 
-## 🏗 Project Structure
+# 🏗 Project Structure
 
 ```text
 Cake-Paradise-By-Sayu/
 │
-├── .vscode/
-│   └── settings.json
-│
-├── dist/
-├── dist-admin/
-├── dist-public/
+├── public/
 │
 ├── src/
+│   ├── assets/
+│   │   ├── images/
+│   │   └── icons/
+│   │
+│   ├── components/
+│   │   ├── Admin/
+│   │   ├── Customer/
+│   │   ├── Layout/
+│   │   └── Shared/
+│   │
+│   ├── pages/
+│   │
+│   ├── firebase/
+│   │
+│   ├── services/
+│   │
+│   ├── hooks/
+│   │
+│   ├── utils/
+│   │
+│   ├── styles/
+│   │
+│   ├── App.jsx
+│   └── main.jsx
 │
 ├── .env
-├── .env.example
 ├── firebase.json
 ├── firestore.rules
-├── firestore.indexes.json
 ├── storage.rules
 ├── package.json
-├── package-lock.json
 ├── vite.config.js
-├── vite.config.admin.js
 ├── vercel.json
-├── index.html
 └── README.md
 ```
 
 ---
 
-## 🛠 Technology Stack
+# 🛠 Technology Stack
 
 | Technology | Purpose |
-|------------|----------|
+|------------|---------|
 | React.js | Frontend Development |
 | Vite | Build Tool |
-| Firebase | Backend Services |
-| Firestore | Database |
+| Firebase | Backend Platform |
+| Firestore | Cloud Database |
 | Firebase Authentication | User Authentication |
 | Firebase Storage | Image Storage |
-| EmailJS | Email Notifications |
-| React Router | Client-Side Routing |
+| React Router DOM | Navigation |
+| EmailJS | Email Services |
 | Lucide React | Icons |
-| CSS | Styling |
+| CSS3 | Styling |
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### Prerequisites
+## Prerequisites
 
-Before running the project, ensure you have installed:
+Before running the project, install:
 
-- Node.js (v18 or later)
+- Node.js (Version 18 or above)
 - npm
-- Firebase Project
+- Git
+- Firebase Account
 
 ---
 
-### Clone Repository
+## Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/cake-paradise-by-sayu.git
+git clone https://github.com/yourusername/Cake-Paradise-By-Sayu.git
 
-cd cake-paradise-by-sayu
+cd Cake-Paradise-By-Sayu
 ```
 
 ---
 
-### Install Dependencies
+## Install Dependencies
 
 ```bash
 npm install
@@ -142,36 +156,36 @@ npm install
 
 ---
 
-### Configure Environment Variables
+## Configure Environment Variables
 
-Create a `.env` file in the root directory and add:
+Create a `.env` file in the project root.
 
 ```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_API_KEY=YOUR_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
+VITE_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID=YOUR_SENDER_ID
+VITE_FIREBASE_APP_ID=YOUR_APP_ID
 ```
 
 ---
 
-### Run Development Server
+## Run the Application
 
 ```bash
 npm run dev
 ```
 
-Application URL:
+Open your browser:
 
-```text
+```
 http://localhost:5173
 ```
 
 ---
 
-### Build for Production
+## Build for Production
 
 ```bash
 npm run build
@@ -179,7 +193,7 @@ npm run build
 
 ---
 
-### Preview Production Build
+## Preview Production Build
 
 ```bash
 npm run preview
@@ -187,66 +201,96 @@ npm run preview
 
 ---
 
-## 📱 User Workflow
+# 📱 System Workflow
 
 ```text
-Homepage
-    ↓
-Browse Products
-    ↓
-Product Details
-    ↓
-Add To Cart
-    ↓
+Customer
+    │
+    ▼
+Visit Website
+    │
+    ▼
+Browse Cakes
+    │
+    ▼
+View Product Details
+    │
+    ▼
+Add to Cart
+    │
+    ▼
 Checkout
-    ↓
+    │
+    ▼
 Order Confirmation
+    │
+    ▼
+Admin Receives Order
 ```
 
 ---
 
-## 📂 Firebase Collections
+# 📂 Firebase Collections
 
 | Collection | Description |
 |------------|-------------|
-| products | Product Catalogue |
-| categories | Product Categories |
-| orders | Customer Orders |
-| customOrders | Custom Cake Requests |
-| customers | Customer Information |
-| reviews | Customer Testimonials |
-| contactMessages | Contact Form Messages |
+| products | Stores all cake products |
+| categories | Product categories |
+| orders | Customer orders |
+| customOrders | Custom cake requests |
+| customers | Customer information |
+| testimonials | Customer reviews |
+| contacts | Contact messages |
 
 ---
 
-## 🔐 User Roles
+# 🔐 User Roles
 
-### Customer
+## Customer
 
 - Browse Products
+- Search Products
 - Add Items to Cart
 - Place Orders
-- Submit Custom Cake Requests
+- Request Custom Cakes
 - Contact Bakery
-
-### Admin
-
-- Manage Products
-- Manage Categories
-- Process Orders
-- Handle Customer Inquiries
-- View Dashboard Analytics
 
 ---
 
-## 🎯 Target Audience
+## Administrator
+
+- Login Securely
+- Manage Products
+- Manage Categories
+- Manage Orders
+- Manage Customers
+- View Dashboard
+- Manage Contact Messages
+
+---
+
+# 🎯 Target Audience
 
 - Birthday Celebrations
-- Wedding Customers
+- Wedding Events
+- Anniversary Celebrations
 - Corporate Events
-- Event Organizers
+- Baby Showers
+- Party Organizers
 - Gift Buyers
-- Returning Customers
+
+
+---
+
+# 🔮 Future Enhancements
+
+- Online Payment Gateway
+- Delivery Tracking
+- Customer Accounts
+- Wishlist
+- Discount Coupons
+- Loyalty Rewards
+- AI-based Cake Recommendation
 
 ---
 
