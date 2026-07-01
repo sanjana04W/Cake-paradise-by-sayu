@@ -105,7 +105,7 @@ const Home = () => {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
               {categories.slice(0, 5).map((cat, index) => (
                 <Link key={cat.id} to={`/shop/${cat.slug}`} className="group flex flex-col items-center hover:-translate-y-2 transition-transform duration-300" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="relative rounded-full overflow-hidden shadow-md group-hover:shadow-2xl transition-all duration-300 aspect-square w-full mb-6 border-4 border-white group-hover:border-rose-gold/20">
+                  <div className="relative rounded-[32px] overflow-hidden shadow-md group-hover:shadow-2xl transition-all duration-300 aspect-square w-full mb-6 border-4 border-white group-hover:border-rose-gold/20">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-black/0 group-hover:to-black/30 transition-colors z-10"></div>
                     {/* Category Image */}
                     <img src={cat.image || 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=400&auto=format&fit=crop'} alt={cat.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
