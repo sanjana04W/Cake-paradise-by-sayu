@@ -41,16 +41,14 @@ export const useProducts = (filters = {}) => {
     // Try to seed sample data if Firestore is empty
     seedFirestore();
 
-    // Build Firestore query — always filter active products for the public shop
     const constraints = [
-      where('status', '==', 'active'),
-      orderBy('createdAt', 'desc'),
+      where('status', '==', 'active')
     ];
 
     if (filters.categoryId) {
-      constraints.splice(0, 0, where('categoryId', '==', filters.categoryId));
+      constraints.push(where('categoryId', '==', filters.categoryId));
     } else if (filters.parentCategoryId) {
-      constraints.splice(0, 0, where('parentCategoryId', '==', filters.parentCategoryId));
+      constraints.push(where('parentCategoryId', '==', filters.parentCategoryId));
     }
 
     const q = query(collection(db, 'products'), ...constraints);
