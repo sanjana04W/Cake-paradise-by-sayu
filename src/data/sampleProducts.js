@@ -10,9 +10,9 @@ export const sampleCategories = [
 
   // Sub-Categories
   { id: 'birthday-cakes', name: 'Birthday Cakes', slug: 'birthday-cakes', parentId: 'celebration-custom-cakes', description: 'Customized birthday celebration cakes', displayOrder: 1, status: 'active', image: '/images/chocolate_dream.png' },
-  { id: 'anniversary-cakes', name: 'Anniversary Cakes', slug: 'anniversary-cakes', parentId: 'celebration-custom-cakes', description: 'Romantic anniversary cakes', displayOrder: 2, status: 'active', image: '/images/Heart Shaped Love Cake.png' },
+  { id: 'anniversary-cakes', name: 'Anniversary Cakes', slug: 'anniversary-cakes', parentId: 'celebration-custom-cakes', description: 'Romantic anniversary cakes', displayOrder: 2, status: 'active', image: '/images/golden_elegance.png' },
   { id: 'kids-theme-cakes', name: 'Kids Theme Cakes', slug: 'kids-theme-cakes', parentId: 'celebration-custom-cakes', description: 'Fun themed cakes for children', displayOrder: 3, status: 'active', image: '/images/Princess Castle Cake.png' },
-  { id: 'novelty-shapes', name: 'Novelty Shapes', slug: 'novelty-shapes', parentId: 'celebration-custom-cakes', description: 'Unique novelty shaped cakes', displayOrder: 4, status: 'active', image: '/images/number-cake.png' },
+  { id: 'novelty-shapes', name: 'Novelty Shapes', slug: 'novelty-shapes', parentId: 'celebration-custom-cakes', description: 'Unique novelty shaped cakes', displayOrder: 4, status: 'active', image: '/images/Heart Shaped Love Cake.png' },
   { id: 'multi-tiered', name: 'Multi-Tiered Cakes', slug: 'multi-tiered', parentId: 'wedding-structure-cakes', description: 'Grand multi-tiered wedding cakes', displayOrder: 1, status: 'active', image: '/images/Floral 4-Tier Garden Wedding Cake.png' },
   { id: 'engagement-cakes', name: 'Engagement Cakes', slug: 'engagement-cakes', parentId: 'wedding-structure-cakes', description: 'Beautiful engagement celebration cakes', displayOrder: 2, status: 'active', image: '/images/Ring Box Engagement Cake.png' },
   { id: 'bridal-shower', name: 'Bridal Shower Cakes', slug: 'bridal-shower', parentId: 'wedding-structure-cakes', description: 'Elegant bridal shower cakes', displayOrder: 3, status: 'active', image: '/images/Elegant Bridal Shower Cake.png' },
