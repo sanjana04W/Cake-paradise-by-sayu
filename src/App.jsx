@@ -13,6 +13,7 @@ import PublicLayout from './components/layout/PublicLayout';
 // Public Pages
 import Home from './pages/public/Home';
 import Shop from './pages/public/Shop';
+import Categories from './pages/public/Categories';
 import ProductDetail from './pages/public/ProductDetail';
 import CustomOrder from './pages/public/CustomOrder';
 import Cart from './pages/public/Cart';
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
                 <Route path="/shop" element={<PublicLayout><Shop /></PublicLayout>} />
                 <Route path="/shop/:category" element={<PublicLayout><Shop /></PublicLayout>} />
+                <Route path="/categories" element={<PublicLayout><Categories /></PublicLayout>} />
                 <Route path="/product/:slug" element={<PublicLayout><ProductDetail /></PublicLayout>} />
                 <Route path="/custom-order" element={<PublicLayout><CustomOrder /></PublicLayout>} />
                 <Route path="/cart" element={<PublicLayout><Cart /></PublicLayout>} />

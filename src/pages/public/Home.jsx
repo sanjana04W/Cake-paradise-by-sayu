@@ -118,7 +118,7 @@ const Home = () => {
             </div>
           )}
           <div className="text-center mt-10">
-            <Link to="/shop" className="inline-flex items-center text-rose-gold font-semibold hover:text-deep-burgundy transition-colors">
+            <Link to="/categories" className="inline-flex items-center text-rose-gold font-semibold hover:text-deep-burgundy transition-colors">
               View All Categories <ChevronRight size={20} className="ml-1" />
             </Link>
           </div>
