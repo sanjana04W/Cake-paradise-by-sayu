@@ -10,20 +10,18 @@ export const sampleCategories = [
   { id: 'quick-pick-ready', name: 'Quick-Pick & Ready Designs', slug: 'quick-pick-ready', parentId: null, description: 'Ready-to-order popular designs', displayOrder: 5, status: 'active', image: '/images/birthday.png' },
 
   // Sub-Categories
-  { id: 'birthday-cakes', name: 'Birthday Cakes', slug: 'birthday-cakes', parentId: 'celebration-custom-cakes', description: 'Customized birthday celebration cakes', displayOrder: 1, status: 'active', image: '' },
-  { id: 'anniversary-cakes', name: 'Anniversary Cakes', slug: 'anniversary-cakes', parentId: 'celebration-custom-cakes', description: 'Romantic anniversary cakes', displayOrder: 2, status: 'active', image: '' },
-  { id: 'kids-theme-cakes', name: 'Kids Theme Cakes', slug: 'kids-theme-cakes', parentId: 'celebration-custom-cakes', description: 'Fun themed cakes for children', displayOrder: 3, status: 'active', image: '' },
-  { id: 'novelty-shapes', name: 'Novelty Shapes', slug: 'novelty-shapes', parentId: 'celebration-custom-cakes', description: 'Unique novelty shaped cakes', displayOrder: 4, status: 'active', image: '' },
-  { id: 'multi-tiered', name: 'Multi-Tiered Cakes', slug: 'multi-tiered', parentId: 'wedding-structure-cakes', description: 'Grand multi-tiered wedding cakes', displayOrder: 1, status: 'active', image: '' },
-  { id: 'engagement-cakes', name: 'Engagement Cakes', slug: 'engagement-cakes', parentId: 'wedding-structure-cakes', description: 'Beautiful engagement celebration cakes', displayOrder: 2, status: 'active', image: '' },
-  { id: 'bridal-shower', name: 'Bridal Shower Cakes', slug: 'bridal-shower', parentId: 'wedding-structure-cakes', description: 'Elegant bridal shower cakes', displayOrder: 3, status: 'active', image: '' },
-  { id: 'decorated-cupcakes', name: 'Decorated Cupcakes', slug: 'decorated-cupcakes', parentId: 'cupcakes-party', description: 'Beautifully decorated cupcake sets', displayOrder: 1, status: 'active', image: '' },
-  { id: 'cake-pops', name: 'Cake Pops', slug: 'cake-pops', parentId: 'cupcakes-party', description: 'Fun and delicious cake pops', displayOrder: 2, status: 'active', image: '' },
-  { id: 'brownies-jars', name: 'Brownies & Jars', slug: 'brownies-jars', parentId: 'cupcakes-party', description: 'Rich brownies and cake jars', displayOrder: 3, status: 'active', image: '' },
-  { id: 'christmas-specials', name: 'Christmas Specials', slug: 'christmas-specials', parentId: 'seasonal-specials', description: 'Festive Christmas cakes and treats', displayOrder: 1, status: 'active', image: '' },
-  { id: 'valentines-day', name: "Valentine's Day", slug: 'valentines-day', parentId: 'seasonal-specials', description: "Romantic Valentine's Day cakes", displayOrder: 2, status: 'active', image: '' },
-  { id: 'best-sellers', name: 'Best-Sellers', slug: 'best-sellers', parentId: 'quick-pick-ready', description: 'Our most popular cake designs', displayOrder: 1, status: 'active', image: '' },
-  { id: 'ready-templates', name: 'Ready-to-Deliver Templates', slug: 'ready-templates', parentId: 'quick-pick-ready', description: 'Quick-turnaround ready designs', displayOrder: 2, status: 'active', image: '' },
+  { id: 'birthday-cakes', name: 'Birthday Cakes', slug: 'birthday-cakes', parentId: 'celebration-custom-cakes', description: 'Customized birthday celebration cakes', displayOrder: 1, status: 'active', image: '/images/birthday.png' },
+  { id: 'anniversary-cakes', name: 'Anniversary Cakes', slug: 'anniversary-cakes', parentId: 'celebration-custom-cakes', description: 'Romantic anniversary cakes', displayOrder: 2, status: 'active', image: '/images/Heart Shaped Love Cake.png' },
+  { id: 'kids-theme-cakes', name: 'Kids Theme Cakes', slug: 'kids-theme-cakes', parentId: 'celebration-custom-cakes', description: 'Fun themed cakes for children', displayOrder: 3, status: 'active', image: '/images/Princess Castle Cake.png' },
+  { id: 'novelty-shapes', name: 'Novelty Shapes', slug: 'novelty-shapes', parentId: 'celebration-custom-cakes', description: 'Unique novelty shaped cakes', displayOrder: 4, status: 'active', image: '/images/Rainbow.png' },
+  { id: 'multi-tiered', name: 'Multi-Tiered Cakes', slug: 'multi-tiered', parentId: 'wedding-structure-cakes', description: 'Grand multi-tiered wedding cakes', displayOrder: 1, status: 'active', image: '/images/Floral 4-Tier Garden Wedding Cake.png' },
+  { id: 'engagement-cakes', name: 'Engagement Cakes', slug: 'engagement-cakes', parentId: 'wedding-structure-cakes', description: 'Beautiful engagement celebration cakes', displayOrder: 2, status: 'active', image: '/images/Ring Box Engagement Cake.png' },
+  { id: 'bridal-shower', name: 'Bridal Shower Cakes', slug: 'bridal-shower', parentId: 'wedding-structure-cakes', description: 'Elegant bridal shower cakes', displayOrder: 3, status: 'active', image: '/images/Elegant Bridal Shower Cake.png' },
+  { id: 'decorated-cupcakes', name: 'Decorated Cupcakes', slug: 'decorated-cupcakes', parentId: 'cupcakes-party', description: 'Beautifully decorated cupcake sets', displayOrder: 1, status: 'active', image: '/images/Designer Cupcake Box - Set of 12.png' },
+  { id: 'cake-pops', name: 'Cake Pops', slug: 'cake-pops', parentId: 'cupcakes-party', description: 'Fun and delicious cake pops', displayOrder: 2, status: 'active', image: '/images/Wedding Favor Cake Pops (20 pcs).png' },
+  { id: 'brownies-jars', name: 'Brownies & Jars', slug: 'brownies-jars', parentId: 'cupcakes-party', description: 'Rich brownies and cake jars', displayOrder: 3, status: 'active', image: '/images/Cake Jar Trio.png' },
+  { id: 'christmas-specials', name: 'Christmas Specials', slug: 'christmas-specials', parentId: 'seasonal-specials', description: 'Festive Christmas cakes and treats', displayOrder: 1, status: 'active', image: '/images/Christmas Snowflake Cake.png' },
+  { id: 'valentines-day', name: "Valentine's Day", slug: 'valentines-day', parentId: 'seasonal-specials', description: "Romantic Valentine's Day cakes", displayOrder: 2, status: 'active', image: "/images/Valentine's Heart Tower Cake.png" },
 ];
 
 // Helper to generate gradient-based placeholder colors
