@@ -15,7 +15,14 @@ const PublicLayout = ({ children }) => {
     <div className="flex flex-col min-h-screen bg-cream font-body text-charcoal">
       <Header />
       <main className="flex-grow">
-        {children || <Outlet />}
+        <div
+          key={location.pathname}
+          style={{
+            animation: 'page-slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both',
+          }}
+        >
+          {children || <Outlet />}
+        </div>
       </main>
       <Footer />
     </div>
