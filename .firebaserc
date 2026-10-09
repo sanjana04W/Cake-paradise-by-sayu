@@ -1,15 +1,15 @@
 {
   "projects": {
-    "default": "cake-paradise-969e6"
+    "default": "cake-paradise-by-sayu"
   },
   "targets": {
-    "cake-paradise-969e6": {
+    "cake-paradise-by-sayu": {
       "hosting": {
         "website": [
-          "cake-paradise-969e6"
+          "cake-paradise-by-sayu"
         ],
         "admin": [
-          "cake-paradise-969e6-admin"
+          "cake-paradise-by-sayu-admin"
         ]
       }
     }

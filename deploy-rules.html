@@ -22,8 +22,8 @@
   <div id="log"></div>
 
   <script>
-    const PROJECT = 'cake-paradise-969e6';
-    const API_KEY = 'AIzaSyCO9oNrVSiSBf4qj3XN6OitWrggH85Lr8w';
+    const PROJECT = 'cake-paradise-by-sayu';
+    const API_KEY = 'AIzaSyAwixuDU3f0caLXjkQkfr__-mxfa1wT6lk';
 
     const FIRESTORE_RULES = `rules_version = '2';
 service cloud.firestore {
@@ -141,12 +141,12 @@ service firebase.storage {
         log('──────────────────────────────────────────────────────');
         log('The Firebase Rules API requires Google OAuth — anonymous tokens are rejected.');
         log('Please do it manually (takes 30 seconds):');
-        log('1. Open: https://console.firebase.google.com/project/cake-paradise-969e6/firestore/rules');
+        log('1. Open: https://console.firebase.google.com/project/cake-paradise-by-sayu/firestore/rules');
         log('2. Paste the rules below and click Publish');
         const pre = document.createElement('pre');
         pre.textContent = FIRESTORE_RULES;
         document.getElementById('log').appendChild(pre);
-        log('3. Open: https://console.firebase.google.com/project/cake-paradise-969e6/storage/rules');
+        log('3. Open: https://console.firebase.google.com/project/cake-paradise-by-sayu/storage/rules');
         log('4. Paste the rules below and click Publish');
         const pre2 = document.createElement('pre');
         pre2.textContent = STORAGE_RULES;

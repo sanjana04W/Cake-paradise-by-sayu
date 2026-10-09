@@ -26,7 +26,7 @@ const FirestoreBanner = () => {
         <p className="text-amber-700 mt-0.5">
           To fix: open{' '}
           <a
-            href="https://console.firebase.google.com/project/cake-paradise-969e6/firestore/rules"
+            href="https://console.firebase.google.com/project/cake-paradise-by-sayu/firestore/rules"
             target="_blank"
             rel="noreferrer"
             className="underline font-medium"

@@ -39,5 +39,5 @@ try {
   console.error('\n✗ Deploy failed. Make sure you have run:');
   console.error('    npm install -g firebase-tools');
   console.error('    firebase login');
-  console.error('    firebase use cake-paradise-969e6\n');
+  console.error('    firebase use cake-paradise-by-sayu\n');
 }
